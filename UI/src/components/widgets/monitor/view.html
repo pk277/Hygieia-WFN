@@ -1,0 +1,69 @@
+
+<div class="monitor-view">
+
+    <div class="widget" ng-if="ctrl.services && ctrl.services.length">
+        <div class="widget-heading">
+            Splunk Errors (Past 1 hour)
+        </div>
+        <div class="widget-body">
+					
+
+		<div class="row">
+		<div class="col-md-2">Status</div><div class="col-md-3">Pod</div>
+		<div class="col-md-3">ErrorCount</div>
+		<div class="col-md-2">uCIDs</div>
+		<div class="col-md-1">%</div>
+
+				</div>
+
+            <div class="monitor-row dash-row clickable"
+                 ng-repeat="service in ctrl.services" 
+                 ng-click="ctrl.openStatusWindow(service)">
+				 <div class="col-md-5">
+                <span class="pull-left" dash-status="ok"></span>
+                <span class="fa fa-comment-o pull-right" ng-if="ctrl.hasMessage(service)"></span>
+                <div class="dash-overflow">{{service.pod}}</div>
+				</div>
+				<div class="col-md-3">{{service.errorCount}}</div>
+				<div class="col-md-2">{{service.ucids}}</div>
+                <div class="col-md-1">{{service.percentage}}</div>            
+			</div>
+			<error-count></error-count>
+        </div>
+    </div>
+
+  
+
+    <p class="text-center" ng-if="!ctrl.services.length && !ctrl.dependencies.length">
+        No services configured
+    </p>
+</div>
+
+<!--A monitor modal used for the status popup-->
+
+<script type="text/ng-template" id="monitorStatus.html">
+    <widget-modal widget-modal-title="Status">
+        
+                <label class="control-label">{{ctrl.service.pod}} : {{ctrl.service.app}}</label>
+                <div class="row">
+				<div class="col-md-2">
+				<p><b>SYSCODES</b></p>
+		         <ul class="list-unstyled">
+				 <li ng-repeat="sys in ctrl.service.sysCodes">{{sys}}</li>
+				 </ul>
+				</div>
+				<div class="col-md-2">
+				<p><b>Unique CUSTIDs</b></p>
+				<ul  class="list-unstyled">
+				<li ng-repeat="custid in ctrl.service.custids">{{custid}}</li></ul>
+				
+				</div>
+				<div class="col-md-6">
+				<p><b>Unique Error Messages</b></p>
+				<ul >
+				<li ng-repeat="errorMessage in ctrl.service.errorMessages"><p>{{errorMessage}}</p></li>
+				</ul>
+				</div>
+				</div>
+    </widget-modal>
+</script>

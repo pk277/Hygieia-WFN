@@ -1,0 +1,355 @@
+[
+{
+  "executionSummary": {
+    "executionId": "12566643216",
+    "branchId": null,
+    "startTime": 1483668410718,
+    "endTime": null,
+    "status": "PAUSED",
+    "resultStatusType": null,
+    "resultStatusName": null,
+    "pauseReason": "INPUT_REQUIRED_MANUAL_OP",
+    "cancelReason": null,
+    "owner": "vajralas",
+    "ownerDomain": "Domain-1429713100251",
+    "triggeredBy": "Domain-1429713100251\\vajralas",
+    "flowUuid": "8bfbeaad-7dce-4eb7-b52f-737b6fd2a315",
+    "flowPath": "Library/ADP/WFN/Core/App/WFN-MEGAFLOW.xml",
+    "executionName": "WFN-MEGAFLOW-WFN13Aut2-JDK33",
+    "triggeringSource": "central",
+    "roi": null
+  },
+  "flowVars": [
+    {
+      "name": "VERSION",
+      "termName": null,
+      "value": "WFN13"
+    },
+    {
+      "name": "env",
+      "termName": null,
+      "value": "AUT2"
+    },
+    {
+      "name": "BL_UserName",
+      "termName": null,
+      "value": "vajralas"
+    },
+    {
+      "name": "BL_Password",
+      "termName": null,
+      "value": "******"
+    },
+    {
+      "name": "inputFilePath",
+      "termName": null,
+      "value": "\\\\hyrdwsz0235\\Users\\vajralas\\Desktop\\CDL_dailyDeployments\\AUT2\\AUT2_GA.xml"
+    }
+  ],
+  "flowOutput": {},
+  "executionLogLevel": "STANDARD"
+},
+{
+  "executionSummary": {
+    "executionId": "12566643206",
+    "branchId": null,
+    "startTime": 1483668350344,
+    "endTime": null,
+    "status": "PAUSED",
+    "resultStatusType": null,
+    "resultStatusName": null,
+    "pauseReason": "INPUT_REQUIRED_MANUAL_OP",
+    "cancelReason": null,
+    "owner": "vajralas",
+    "ownerDomain": "Domain-1429713100251",
+    "triggeredBy": "Domain-1429713100251\\vajralas",
+    "flowUuid": "8bfbeaad-7dce-4eb7-b52f-737b6fd2a315",
+    "flowPath": "Library/ADP/WFN/Core/App/WFN-MEGAFLOW.xml",
+    "executionName": "WFN-MEGAFLOW-WFN13-AUT1-13.0.0.92/JDK33",
+    "triggeringSource": "central",
+    "roi": null
+  },
+  "flowVars": [
+    {
+      "name": "VERSION",
+      "termName": null,
+      "value": "WFN13"
+    },
+    {
+      "name": "env",
+      "termName": null,
+      "value": "AUT1"
+    },
+    {
+      "name": "BL_UserName",
+      "termName": null,
+      "value": "vajralas"
+    },
+    {
+      "name": "BL_Password",
+      "termName": null,
+      "value": "******"
+    },
+    {
+      "name": "inputFilePath",
+      "termName": null,
+      "value": "\\\\hyrdwsz0235\\Users\\vajralas\\Desktop\\CDL_dailyDeployments\\AUT1\\AUT1_GA.xml"
+    }
+  ],
+  "flowOutput": {},
+  "executionLogLevel": "STANDARD"
+},
+{
+  "executionSummary": {
+    "executionId": "12566643203",
+    "branchId": null,
+    "startTime": 1483668190958,
+    "endTime": 1483676984048,
+    "status": "COMPLETED",
+    "resultStatusType": "RESOLVED",
+    "resultStatusName": "success",
+    "pauseReason": null,
+    "cancelReason": null,
+    "owner": "vajralas",
+    "ownerDomain": "Domain-1429713100251",
+    "triggeredBy": "Domain-1429713100251\\vajralas",
+    "flowUuid": "8bfbeaad-7dce-4eb7-b52f-737b6fd2a315",
+    "flowPath": "Library/ADP/WFN/Core/App/WFN-MEGAFLOW.xml",
+    "executionName": "WFN-MEGAFLOW-WFN12FIT1-12.0.40.26",
+    "triggeringSource": "central",
+    "roi": 0
+  },
+  "flowVars": [
+    {
+      "name": "VERSION",
+      "termName": null,
+      "value": "WFN12"
+    },
+    {
+      "name": "env",
+      "termName": null,
+      "value": "FIT1"
+    },
+    {
+      "name": "BL_UserName",
+      "termName": null,
+      "value": "vajralas"
+    },
+    {
+      "name": "BL_Password",
+      "termName": null,
+      "value": "******"
+    },
+    {
+      "name": "inputFilePath",
+      "termName": null,
+      "value": "\\\\hyrdwsz0235\\Users\\vajralas\\Desktop\\CDL_dailyDeployments\\FIT1\\FIT1_LIVE.xml"
+    }
+  ],
+  "flowOutput": {
+    "Result": null
+  },
+  "executionLogLevel": "STANDARD"
+},
+{
+  "executionSummary": {
+    "executionId": "12566643179",
+    "branchId": null,
+    "startTime": 1483668068660,
+    "endTime": null,
+    "status": "PAUSED",
+    "resultStatusType": null,
+    "resultStatusName": null,
+    "pauseReason": "INPUT_REQUIRED_MANUAL_OP",
+    "cancelReason": null,
+    "owner": "vajralas",
+    "ownerDomain": "Domain-1429713100251",
+    "triggeredBy": "Domain-1429713100251\\vajralas",
+    "flowUuid": "8bfbeaad-7dce-4eb7-b52f-737b6fd2a315",
+    "flowPath": "Library/ADP/WFN/Core/App/WFN-MEGAFLOW.xml",
+    "executionName": "WFN-MEGAFLOW-WFN13-13.0.0.92/JDK33",
+    "triggeringSource": "central",
+    "roi": null
+  },
+  "flowVars": [
+    {
+      "name": "VERSION",
+      "termName": null,
+      "value": "WFN13"
+    },
+    {
+      "name": "env",
+      "termName": null,
+      "value": "DIT"
+    },
+    {
+      "name": "BL_UserName",
+      "termName": null,
+      "value": "vajralas"
+    },
+    {
+      "name": "BL_Password",
+      "termName": null,
+      "value": "******"
+    },
+    {
+      "name": "inputFilePath",
+      "termName": null,
+      "value": "\\\\hyrdwsz0235\\Users\\vajralas\\Desktop\\CDL_dailyDeployments\\DIT2\\DIT2_PILOT.xml"
+    }
+  ],
+  "flowOutput": {},
+  "executionLogLevel": "STANDARD"
+},
+{
+  "executionSummary": {
+    "executionId": "12566136967",
+    "branchId": null,
+    "startTime": 1483666201300,
+    "endTime": 1483666356717,
+    "status": "COMPLETED",
+    "resultStatusType": "RESOLVED",
+    "resultStatusName": "success",
+    "pauseReason": null,
+    "cancelReason": null,
+    "owner": "jakkaven",
+    "ownerDomain": "Domain-1429713100251",
+    "triggeredBy": "Domain-1429713100251\\jakkaven",
+    "flowUuid": "289bb923-75ff-4816-b1c1-39e74b784b26",
+    "flowPath": "Library/Vantage_Devops/Tools/VantageConfig/Pdaeconfig.xml",
+    "executionName": "Pdaeconfig-FIT Schedule",
+    "triggeringSource": "central",
+    "roi": 0
+  },
+  "flowVars": [
+    {
+      "name": "hosts",
+      "termName": null,
+      "value": "cdldvjasvap2295,cdldvjasvap2296,cdldvjasvap2297,cdldvjasvap2298,cdldvjasvap2299,cdldvjasvap2300,cdldvjasvap2301,cdldvjasvap2302,cdldvjasvap2303,cdldvjasvap2304,cdldvjasvap2305,cdldvjasvap2306,cdldvjasvap2307,cdldvjasvap2308,cdldvjasvap2309,cdldvjasvap2310,cdldvjasvap1346,cdldvjasvap1347,cdldvjasvap1348,cdldvjasvap1349"
+    },
+    {
+      "name": "ENV",
+      "termName": null,
+      "value": "FIT"
+    },
+    {
+      "name": "password",
+      "termName": null,
+      "value": "{ENCRYPTED}w7sY+THoijeIvbAKIwe4/Q=="
+    },
+    {
+      "name": "username",
+      "termName": null,
+      "value": "jakkav"
+    }
+  ],
+  "flowOutput": {
+    "Result": null
+  },
+  "executionLogLevel": "STANDARD"
+},
+{
+  "executionSummary": {
+    "executionId": "12566136586",
+    "branchId": null,
+    "startTime": 1483662614336,
+    "endTime": 1483662998550,
+    "status": "COMPLETED",
+    "resultStatusType": "RESOLVED",
+    "resultStatusName": "success",
+    "pauseReason": null,
+    "cancelReason": null,
+    "owner": "mcconnek",
+    "ownerDomain": "Domain-1429713100251",
+    "triggeredBy": "Domain-1429713100251\\mcconnek",
+    "flowUuid": "bbe88d73-1755-4523-a1af-f20e441da9db",
+    "flowPath": "Library/ADP/WFN/Core/App/StagingOfEARSandDB.xml",
+    "executionName": "StagingOfEARSandDB - WFN - AUTO1 - 13.0.0.0.92 - KMM - 010517",
+    "triggeringSource": "central",
+    "roi": 0
+  },
+  "flowVars": [
+    {
+      "name": "VERSION",
+      "termName": null,
+      "value": "WFN13"
+    },
+    {
+      "name": "env",
+      "termName": null,
+      "value": "AUT1"
+    },
+    {
+      "name": "BL_UserName",
+      "termName": null,
+      "value": "mcconnek"
+    },
+    {
+      "name": "BL_Password",
+      "termName": null,
+      "value": "******"
+    },
+    {
+      "name": "inputFilePath",
+      "termName": null,
+      "value": "\\\\cdlmascm1.es.ad.adp.com\\HPOO_XML\\AUT1\\AUT1_GA.xml"
+    }
+  ],
+  "flowOutput": {
+    "Result": null
+  },
+  "executionLogLevel": "STANDARD"
+},
+{
+  "executionSummary": {
+    "executionId": "12567800374",
+    "branchId": null,
+    "startTime": 1483630208245,
+    "endTime": 1483642585076,
+    "status": "COMPLETED",
+    "resultStatusType": "RESOLVED",
+    "resultStatusName": "success",
+    "pauseReason": null,
+    "cancelReason": null,
+    "owner": "edupugav",
+    "ownerDomain": "Domain-1429713100251",
+    "triggeredBy": "Domain-1429713100251\\edupugav",
+    "flowUuid": "8bfbeaad-7dce-4eb7-b52f-737b6fd2a315",
+    "flowPath": "Library/ADP/WFN/Core/App/WFN-MEGAFLOW.xml",
+    "executionName": "WFN-MEGAFLOW-FIT1-13.0.0.0.91",
+    "triggeringSource": "central",
+    "roi": 0
+  },
+  "flowVars": [
+    {
+      "name": "VERSION",
+      "termName": null,
+      "value": "WFN13"
+    },
+    {
+      "name": "env",
+      "termName": null,
+      "value": "FIT1"
+    },
+    {
+      "name": "BL_UserName",
+      "termName": null,
+      "value": "edupugav"
+    },
+    {
+      "name": "BL_Password",
+      "termName": null,
+      "value": "******"
+    },
+    {
+      "name": "inputFilePath",
+      "termName": null,
+      "value": "\\\\cdlmascm1.es.ad.adp.com\\HPOO_XML\\FIT1\\FIT1_PILOT.xml"
+    }
+  ],
+  "flowOutput": {
+    "Result": null
+  },
+  "executionLogLevel": "STANDARD"
+}
+]
