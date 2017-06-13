@@ -9,7 +9,7 @@ import java.util.List;
  * Bean to hold settings specific to the UDeploy collector.
  */
 @Component
-@ConfigurationProperties(prefix = "hpoodeploy")
+@ConfigurationProperties(prefix = "udeploy")
 public class UDeploySettings {
     private String cron;
     private String username;
