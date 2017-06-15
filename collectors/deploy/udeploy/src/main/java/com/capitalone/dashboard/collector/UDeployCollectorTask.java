@@ -5,14 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
+
 import com.capitalone.dashboard.model.CollectorItem;
 import com.capitalone.dashboard.model.CollectorType;
 import com.capitalone.dashboard.model.Environment;
@@ -69,7 +68,7 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
 
     @Override
     public UDeployCollector getCollector() {
-        return UDeployCollector.prototype(uDeploySettings.getServers(), uDeploySettings.getNiceNames());
+        return UDeployCollector.prototype(uDeploySettings.getServers());
     }
 
     @Override
@@ -94,8 +93,15 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
 
             addNewApplications(uDeployClient.getExecutions(instanceUrl),
                     collector);
-            updateData(enabledApplications(collector, instanceUrl));
-
+            log("After Add New Applications");
+            
+            List<UDeployApplication> list  = enabledApplications(collector, instanceUrl);
+            log("list.size "+list.size());
+            
+            log("list data is "+list.get(0).getExecutionId());
+            if(!list.isEmpty()){
+            	updateData(list);
+            }
             log("Finished", start);
         }
     }
@@ -162,11 +168,9 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
 
             component.setEnvironmentName(environment.getEnvName());
             component.setAsOfDate(data.getAsOfDate());
-            String environmentURL = StringUtils.removeEnd(
-                    application.getInstanceUrl(), "/")
-                    + "/#environment/" + environment.getVersion();
-            component.setEnvironmentUrl(environmentURL);
-
+            //String environmentURL = application.getInstanceUrl();
+            component.setEnvironmentUrl(application.getInstanceUrl());
+            
             returnList.add(component);
         }
         return returnList;
@@ -198,10 +202,12 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
      */
     private void updateData(List<UDeployApplication> uDeployApplications) {
         for (UDeployApplication application : uDeployApplications) {
+        	log("uDeployApplications size is "+uDeployApplications.size());
+        	log("uDeployApplication is "+uDeployApplications.get(0).getExecutionId());
             List<EnvironmentComponent> compList = new ArrayList<>();
             List<EnvironmentStatus> statusList = new ArrayList<>();
             long startApp = System.currentTimeMillis();
-
+            log("application is "+application.getExecutionId());
             for (Environment environment : uDeployClient
                     .getEnvironments(application)) {
 
@@ -245,19 +251,18 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
                                     UDeployCollector collector) {
         long start = System.currentTimeMillis();
         int count = 0;
-
         log("All apps", start, applications.size());
         for (UDeployApplication application : applications) {
         	UDeployApplication existing = findExistingApplication(collector, application);
 
-        	String niceName = getNiceName(application, collector);
+        	//String niceName = getNiceName(application, collector);
             if (existing == null) {
                 application.setCollectorId(collector.getId());
-                application.setEnabled(false);
+                application.setEnabled(true);
                 application.setDescription(application.getExecutionName());
-                if (StringUtils.isNotEmpty(niceName)) {
+                /*if (StringUtils.isNotEmpty(niceName)) {
                 	application.setNiceName(niceName);
-                }
+                }*/
                 try {
                     uDeployApplicationRepository.save(application);
                 } catch (org.springframework.dao.DuplicateKeyException ce) {
@@ -265,9 +270,10 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
 
                 }
                 count++;
-            } else if (StringUtils.isEmpty(existing.getNiceName()) && StringUtils.isNotEmpty(niceName)) {
-				existing.setNiceName(niceName);
-				uDeployApplicationRepository.save(existing);
+            } else  {
+            	continue;
+			//	existing.setNiceName(niceName);
+				//uDeployApplicationRepository.save(existing);
             }
 
         }
@@ -281,7 +287,7 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
                 application.getExecutionId());
     }
     
-    private String getNiceName(UDeployApplication application, UDeployCollector collector) {
+   /* private String getNiceName(UDeployApplication application, UDeployCollector collector) {
         if (CollectionUtils.isEmpty(collector.getUDeployServers())) return "";
         List<String> servers = collector.getUDeployServers();
         List<String> niceNames = collector.getNiceNames();
@@ -292,7 +298,7 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
             }
         }
         return "";
-    }
+    }*/
 
     @SuppressWarnings("unused")
 	private boolean changed(EnvironmentStatus status, EnvironmentStatus existing) {

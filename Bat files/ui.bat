@@ -1,2 +1,2 @@
-cd C:\Users\kasibhov\Desktop\Hygieia-WFN\Hygieia-Devops-Dashboard\UI
+cd C:\Users\kasibhov\Desktop\Hygieia\Hygieia-Devops-Dashboard\UI
 gulp serve

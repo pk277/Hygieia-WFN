@@ -58,19 +58,20 @@ public void collect(SplunkCollector collector) {
  
 
         long start = System.currentTimeMillis();
-        log("I'm here1"+splunkSettings.getUrl());
         try {
 			List<SplunkEvent> eventList = splunkClient.getSplunkEventList();
 
 	    	log(eventList!=null ? eventList.get(0).toString(): "");
-			log("I'm here2"+splunkSettings.getUrl());
 			cleanEvents();
-			log("I'm here3"+splunkSettings.getUrl());
 			eventRepository.save(eventList);
-			log("I'm here4"+splunkSettings.getUrl());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			LOG.info(e.getMessage());
+			LOG.info(e.getStackTrace()[0].toString());
+			LOG.info(e.getStackTrace()[1].toString());
+			LOG.info(e.getStackTrace()[2].toString());
+			LOG.info(e.getStackTrace()[3].toString());
+			LOG.info(e.getStackTrace()[4].toString());
+		
 			LOG.info("Error");
 		}
         log("Finished", start);
