@@ -56,7 +56,7 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
                                 EnvironmentStatusRepository environmentStatusRepository,
                                 UDeploySettings uDeploySettings, UDeployClient uDeployClient,
                                 ComponentRepository dbComponentRepository) {
-        super(taskScheduler, "UDeploy");
+        super(taskScheduler, "HPOO");
         this.uDeployCollectorRepository = uDeployCollectorRepository;
         this.uDeployApplicationRepository = uDeployApplicationRepository;
         this.uDeploySettings = uDeploySettings;
@@ -93,12 +93,9 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
 
             addNewApplications(uDeployClient.getExecutions(instanceUrl),
                     collector);
-            log("After Add New Applications");
             
             List<UDeployApplication> list  = enabledApplications(collector, instanceUrl);
-            log("list.size "+list.size());
             
-            log("list data is "+list.get(0).getExecutionId());
             if(!list.isEmpty()){
             	updateData(list);
             }
@@ -114,6 +111,7 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
     @SuppressWarnings("PMD.AvoidDeeplyNestedIfStmts")
     private void clean(UDeployCollector collector) {
         deleteUnwantedJobs(collector);
+    	//deleteJobs();
         Set<ObjectId> uniqueIDs = new HashSet<>();
         for (com.capitalone.dashboard.model.Component comp : dbComponentRepository
                 .findAll()) {
@@ -144,15 +142,22 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
         Set<ObjectId> udId = new HashSet<>();
         udId.add(collector.getId());
         for (UDeployApplication app : uDeployApplicationRepository.findByCollectorIdIn(udId)) {
-            if (!collector.getUDeployServers().contains(app.getInstanceUrl()) ||
-                    (!app.getCollectorId().equals(collector.getId()))) {
+           /* if (!collector.getUDeployServers().contains(app.getInstanceUrl()) ||
+                    (!app.getCollectorId().equals(collector.getId()))) {*/
+        		log(app.getCollectorId().toString());
                 deleteAppList.add(app);
-            }
+            //}
         }
 
         uDeployApplicationRepository.delete(deleteAppList);
 
     }
+    
+   /* private void deleteJobs() {
+
+        uDeployApplicationRepository.deleteAll();
+
+    }*/
 
     private List<EnvironmentComponent> getEnvironmentComponent(List<UDeployEnvResCompData> dataList, Environment environment, UDeployApplication application) {
         List<EnvironmentComponent> returnList = new ArrayList<>();
@@ -257,6 +262,7 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
 
         	//String niceName = getNiceName(application, collector);
             if (existing == null) {
+            	log("Inside existing");
                 application.setCollectorId(collector.getId());
                 application.setEnabled(true);
                 application.setDescription(application.getExecutionName());
@@ -271,9 +277,13 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
                 }
                 count++;
             } else  {
-            	continue;
+            	log("Inside else existing");
+            	existing.setEnabled(true);
+            	uDeployApplicationRepository.save(existing);
+            	//continue;
 			//	existing.setNiceName(niceName);
-				//uDeployApplicationRepository.save(existing);
+            	//uDeployApplicationRepository.delete(existing);
+			//	uDeployApplicationRepository.save(existing);
             }
 
         }

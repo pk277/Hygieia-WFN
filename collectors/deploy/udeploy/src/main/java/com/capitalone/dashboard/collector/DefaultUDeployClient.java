@@ -74,10 +74,11 @@ public class DefaultUDeployClient implements UDeployClient {
 
 			JSONObject jsonObject = (JSONObject) array.get(0);
 			JSONArray flowVarsArray = getLowestLevelChildren(jsonObject, new JSONArray());
+			String envVer = str((JSONObject) flowVarsArray.get(0), "value");
 			String envName = str((JSONObject) flowVarsArray.get(1), "value");
-			if (!envList.contains(envName)) {
-				envList.add(envName);
-				environment.add(new Environment(str((JSONObject) flowVarsArray.get(0), "value"), envName));
+			if (!envList.contains(envVer+" "+envName)) {
+				envList.add(envVer+" "+envName);
+				environment.add(new Environment(envVer, envVer+" "+envName));
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -126,7 +127,7 @@ public class DefaultUDeployClient implements UDeployClient {
 			component.setEnvironmentName(environment.getEnvName());
 			component.setEnvironmentUrl("");
 			component.setComponentID(application.getExecutionId());
-			component.setComponentName(application.getExecutionName());
+			component.setComponentName(environment.getEnvName());
 			component.setComponentVersion(environment.getVersion());
 			component.setAsOfDate(date(jsonObject, "endDate"));
 			JSONObject object = (JSONObject) jsonObject.get("executionSummary");
@@ -161,7 +162,7 @@ public class DefaultUDeployClient implements UDeployClient {
 		} else {
 			data.setDeployed(false);
 		}
-		data.setComponentName(application.getExecutionName());
+		data.setComponentName(environment.getEnvName());
 		// need to check this
 		data.setOnline(data.isDeployed());
 		data.setResourceName(application.getExecutionName());

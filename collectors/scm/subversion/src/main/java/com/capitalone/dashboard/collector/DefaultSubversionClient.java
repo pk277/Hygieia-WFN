@@ -43,7 +43,9 @@ public class DefaultSubversionClient implements SubversionClient {
             commit.setTimestamp(System.currentTimeMillis());
             commit.setScmUrl(repo.getRepoUrl());
             commit.setScmRevisionNumber(String.valueOf(logEntry.getRevision()));
-            commit.setScmAuthor(logEntry.getAuthor());
+            if(!"wfnbuilduser".equalsIgnoreCase(logEntry.getAuthor())){
+            	commit.setScmAuthor(logEntry.getAuthor());
+            }
             commit.setScmCommitLog(logEntry.getMessage());
             commit.setScmCommitTimestamp(logEntry.getDate().getTime());
             commit.setNumberOfChanges(logEntry.getChangedPaths().size());
@@ -78,11 +80,11 @@ public class DefaultSubversionClient implements SubversionClient {
     }
 
     private SVNRepository getSvnRepository(String url) throws SVNException {
-    	String userUrl = settings.getUrl();
+    	//String userUrl = settings.getUrl();
     	String userName=settings.getUsername();
     	String password = settings.getPassword();
     	//System.out.println("settings File details"+ settings.getUrl()+settings.getUsername()+settings.getPassword());
-        SVNRepository repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(userUrl));
+        SVNRepository repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
         LOG.info("I have passed this line");
         ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(
                 userName, password);
