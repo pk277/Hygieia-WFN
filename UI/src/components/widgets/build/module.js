@@ -5,7 +5,7 @@
         config = {
             view: {
                 defaults: {
-                    title: 'Build' // widget title
+                    title: 'Build - Jenkins' // widget title
                 },
                 controller: 'BuildWidgetViewController',
                 controllerAs: 'buildView',

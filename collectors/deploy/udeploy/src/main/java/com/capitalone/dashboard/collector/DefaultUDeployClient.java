@@ -48,14 +48,18 @@ public class DefaultUDeployClient implements UDeployClient {
 
 		for (Object item : paresAsArray(makeRestCall(instanceUrl, "v1/executions/"))) {
 			JSONObject jsonObject = (JSONObject) item;
-			if (str(jsonObject, "executionName").contains("WFN-MEGAFLOW")) {
+			String exName = str(jsonObject, "executionName");
+			String exId = str(jsonObject, "executionId");
+			if (exName.startsWith("WFN-MEGAFLOW")) {
 				UDeployApplication application = new UDeployApplication();
 				application.setInstanceUrl(instanceUrl);
-				application.setExecutionName(str(jsonObject, "executionName"));
-				application.setExecutionId(str(jsonObject, "executionId"));
+				application.setExecutionName(exName);
+				application.setExecutionId(exId);
 				applications.add(application);
+				LOGGER.info("exId id is " + application.getExecutionId());
 			}
 		}
+		
 		return applications;
 	}
 

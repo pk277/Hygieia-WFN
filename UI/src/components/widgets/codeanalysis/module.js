@@ -5,7 +5,7 @@
         config = {
             view: {
                 defaults: {
-                    title: 'Quality' // widget title
+                    title: 'Quality - Sonar' // widget title
                 },
                 controller: 'CodeAnalysisViewController',
                 controllerAs: 'caWidget',

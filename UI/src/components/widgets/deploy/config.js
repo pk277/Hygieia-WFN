@@ -62,14 +62,15 @@
                             selectedIndex = idx;
                         }
                 		
-                		if (i > 0) {
+                		/* if (i > 0) {
                 			name += ', ';
-                		}
-                		name += ((deploy.niceName != null) && (deploy.niceName != "") ? deploy.niceName : deploy.collector.name);
+                		} */
+						console.log("deploy.collector.name is "+deploy.collector.name);
+                		name = ((deploy.niceName != null) && (deploy.niceName != "") ? deploy.niceName : deploy.collector.name);
                     }
                 	
                 	group = name;
-                	name += '-' + firstDeploy.options.applicationName;
+                	//name += '-' + firstDeploy.options.applicationName;
                 	
                     return {
                         value: ids,

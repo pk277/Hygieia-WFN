@@ -5,7 +5,7 @@
         config = {
         view: {
             defaults: {
-                title: 'Code Repo' // widget title
+                title: 'Code Repo - SVN' // widget title
             },
             controller: 'RepoViewController',
             controllerAs: 'repoView',

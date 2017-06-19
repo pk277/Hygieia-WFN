@@ -142,11 +142,11 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
         Set<ObjectId> udId = new HashSet<>();
         udId.add(collector.getId());
         for (UDeployApplication app : uDeployApplicationRepository.findByCollectorIdIn(udId)) {
-           /* if (!collector.getUDeployServers().contains(app.getInstanceUrl()) ||
+            /*if (!collector.getUDeployServers().contains(app.getInstanceUrl()) ||
                     (!app.getCollectorId().equals(collector.getId()))) {*/
         		log(app.getCollectorId().toString());
                 deleteAppList.add(app);
-            //}
+           // }
         }
 
         uDeployApplicationRepository.delete(deleteAppList);

@@ -5,7 +5,7 @@
         config = {
             view: {
                 defaults: {
-                    title: 'Deploy' // widget title
+                    title: 'Deploy - HPOO' // widget title
                 },
                 controller: 'deployViewController',
                 controllerAs: 'deployView',

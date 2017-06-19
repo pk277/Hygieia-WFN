@@ -5,7 +5,7 @@
         config = {
             view: {
                 defaults: {
-                    title: 'Monitor' // widget title
+                    title: 'Monitor - Splunk' // widget title
                 },
                 controller: 'monitorViewController',
                 controllerAs: 'ctrl',
