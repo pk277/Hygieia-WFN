@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Component;
 
-import com.capitalone.dashboard.model.CollectorItem;
-import com.capitalone.dashboard.model.CollectorType;
 import com.capitalone.dashboard.model.Environment;
 import com.capitalone.dashboard.model.EnvironmentComponent;
 import com.capitalone.dashboard.model.EnvironmentStatus;
@@ -21,7 +19,6 @@ import com.capitalone.dashboard.model.UDeployApplication;
 import com.capitalone.dashboard.model.UDeployCollector;
 import com.capitalone.dashboard.model.UDeployEnvResCompData;
 import com.capitalone.dashboard.repository.BaseCollectorRepository;
-import com.capitalone.dashboard.repository.ComponentRepository;
 import com.capitalone.dashboard.repository.EnvironmentComponentRepository;
 import com.capitalone.dashboard.repository.EnvironmentStatusRepository;
 import com.capitalone.dashboard.repository.UDeployApplicationRepository;
@@ -35,7 +32,7 @@ import com.google.common.collect.Iterables;
  */
 @Component
 public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
-    @SuppressWarnings({"unused", "PMD.UnusedPrivateField"})
+    //@SuppressWarnings({"unused", "PMD.UnusedPrivateField"})
     private static final Logger LOGGER = LoggerFactory.getLogger(UDeployCollectorTask.class);
 
     private final UDeployCollectorRepository uDeployCollectorRepository;
@@ -46,7 +43,7 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
     private final EnvironmentComponentRepository envComponentRepository;
     private final EnvironmentStatusRepository environmentStatusRepository;
 
-    private final ComponentRepository dbComponentRepository;
+   // private final ComponentRepository dbComponentRepository;
 
     @Autowired
     public UDeployCollectorTask(TaskScheduler taskScheduler,
@@ -54,8 +51,8 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
                                 UDeployApplicationRepository uDeployApplicationRepository,
                                 EnvironmentComponentRepository envComponentRepository,
                                 EnvironmentStatusRepository environmentStatusRepository,
-                                UDeploySettings uDeploySettings, UDeployClient uDeployClient,
-                                ComponentRepository dbComponentRepository) {
+                                UDeploySettings uDeploySettings, UDeployClient uDeployClient
+                                /*ComponentRepository dbComponentRepository*/) {
         super(taskScheduler, "HPOO");
         this.uDeployCollectorRepository = uDeployCollectorRepository;
         this.uDeployApplicationRepository = uDeployApplicationRepository;
@@ -63,7 +60,7 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
         this.uDeployClient = uDeployClient;
         this.envComponentRepository = envComponentRepository;
         this.environmentStatusRepository = environmentStatusRepository;
-        this.dbComponentRepository = dbComponentRepository;
+       // this.dbComponentRepository = dbComponentRepository;
     }
 
     @Override
@@ -95,7 +92,6 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
                     collector);
             
             List<UDeployApplication> list  = enabledApplications(collector, instanceUrl);
-            
             if(!list.isEmpty()){
             	updateData(list);
             }
@@ -108,11 +104,11 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
      *
      * @param collector the {@link UDeployCollector}
      */
-    @SuppressWarnings("PMD.AvoidDeeplyNestedIfStmts")
+   // @SuppressWarnings("PMD.AvoidDeeplyNestedIfStmts")
     private void clean(UDeployCollector collector) {
         deleteUnwantedJobs(collector);
     	//deleteJobs();
-        Set<ObjectId> uniqueIDs = new HashSet<>();
+        /*Set<ObjectId> uniqueIDs = new HashSet<>();
         for (com.capitalone.dashboard.model.Component comp : dbComponentRepository
                 .findAll()) {
             if (comp.getCollectorItems() == null || comp.getCollectorItems().isEmpty()) continue;
@@ -129,11 +125,11 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
         udId.add(collector.getId());
         for (UDeployApplication app : uDeployApplicationRepository.findByCollectorIdIn(udId)) {
             if (app != null) {
-                app.setEnabled(uniqueIDs.contains(app.getId()));
+                app.setEnabled(true);//uniqueIDs.contains(app.getId()));
                 appList.add(app);
             }
         }
-        uDeployApplicationRepository.save(appList);
+        uDeployApplicationRepository.save(appList);*/
     }
 
     private void deleteUnwantedJobs(UDeployCollector collector) {
@@ -207,7 +203,7 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
      */
     private void updateData(List<UDeployApplication> uDeployApplications) {
         for (UDeployApplication application : uDeployApplications) {
-        	log("uDeployApplications size is "+uDeployApplications.size());
+        	LOGGER.info("uDeployApplications size is "+uDeployApplications.size());
         	log("uDeployApplication is "+uDeployApplications.get(0).getExecutionId());
             List<EnvironmentComponent> compList = new ArrayList<>();
             List<EnvironmentStatus> statusList = new ArrayList<>();
