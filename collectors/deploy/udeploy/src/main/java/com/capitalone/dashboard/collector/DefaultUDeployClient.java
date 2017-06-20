@@ -129,10 +129,11 @@ public class DefaultUDeployClient implements UDeployClient {
 			EnvironmentComponent component = new EnvironmentComponent();
 			component.setEnvironmentID(environment.getVersion());
 			component.setEnvironmentName(environment.getEnvName());
-			component.setEnvironmentUrl("");
+			component.setEnvironmentUrl(application.getInstanceUrl());
 			component.setComponentID(application.getExecutionId());
 			component.setComponentName(environment.getEnvName());
 			component.setComponentVersion(environment.getVersion());
+			component.setCollectorItemId(application.getId());
 			component.setAsOfDate(date(jsonObject, "endDate"));
 			JSONObject object = (JSONObject) jsonObject.get("executionSummary");
 			String finalStatus = str(object, "status");

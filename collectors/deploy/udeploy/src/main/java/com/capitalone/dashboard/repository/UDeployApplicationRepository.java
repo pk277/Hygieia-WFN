@@ -17,11 +17,11 @@ public interface UDeployApplicationRepository extends BaseCollectorItemRepositor
      *
      * @param collectorId ID of the {@link com.UDeployCollector.wfn.devops.dashboard.model.HPOODeployCollector}
      * @param instanceUrl UDeploy instance URL
-     * @param applicationId UDeploy application ID
+     * @param string UDeploy application ID
      * @return a {@link UDeployApplication} instance
      */
-    @Query(value="{ 'collectorId' : ?0, options.instanceUrl : ?1, options.applicationId : ?2}")
-    UDeployApplication findHPOODeployApplication(ObjectId collectorId, String instanceUrl, String applicationId);
+    @Query(value="{ 'collectorId' : ?0, options.instanceUrl : ?1, options.executionId : ?2}")
+    UDeployApplication findHPOODeployApplication(ObjectId collectorId, String instanceUrl, String string);
 
     /**
      * Finds all {@link UDeployApplication}s for the given instance URL.
