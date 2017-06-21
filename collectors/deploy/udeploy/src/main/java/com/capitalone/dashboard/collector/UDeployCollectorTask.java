@@ -246,9 +246,9 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
         int count = 0;
         log("All apps", start, applications.size());
         for (UDeployApplication application : applications) {
-        	log("Application ID inside For Loop" + application.getId());
+        	//log("Application ID inside For Loop" + application.getId());
         	UDeployApplication existing = findExistingApplication(collector, application);
-        	log("Application ID inside For Loop 1" + application.getCollectorId()+application.isEnabled());
+        	//log("Application ID inside For Loop 1" + application.getCollectorId()+application.isEnabled());
             if (existing == null) {
             	log("Inside existing");
                 application.setCollectorId(collector.getId());
