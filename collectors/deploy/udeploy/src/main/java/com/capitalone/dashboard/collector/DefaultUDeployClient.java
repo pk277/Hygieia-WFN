@@ -67,9 +67,7 @@ public class DefaultUDeployClient implements UDeployClient {
 	@Override
 	public List<Environment> getEnvironments(UDeployApplication application) {
 		List<Environment> environment = new ArrayList<>();
-
 		String url = "v1/executions/" + application.getExecutionId() + "/execution-log/";
-		LOGGER.info("execution id is " + application.getExecutionId());
 
 		ResponseEntity<String> response = makeRestCall(application.getInstanceUrl(), url);
 		String newResponse = "[" + response.getBody() + "]";
@@ -93,10 +91,9 @@ public class DefaultUDeployClient implements UDeployClient {
 	}
 
 	@Override
-	public List<UDeployEnvResCompData> getEnvironmentResourceStatusData(UDeployApplication application,
+	public UDeployEnvResCompData getEnvironmentResourceStatusData(UDeployApplication application,
 			Environment environment) {
-
-		List<UDeployEnvResCompData> environmentStatuses = new ArrayList<>();
+		UDeployEnvResCompData environmentStatuses = new UDeployEnvResCompData();
 		String url = "v1/executions/" + application.getExecutionId() + "/execution-log/";
 		ResponseEntity<String> allResourceResponse = makeRestCall(application.getInstanceUrl(), url);
 		String newResponse = "[" + allResourceResponse.getBody() + "]";
@@ -105,8 +102,8 @@ public class DefaultUDeployClient implements UDeployClient {
 			array = (JSONArray) new JSONParser().parse(newResponse);
 			// JSONArray allResourceJSON = paresAsArray(allResourceResponse);
 			JSONObject jsonObject = (JSONObject) array.get(0);
-			environmentStatuses.add(buildUdeployEnvResCompData(environment, application,
-					(JSONObject) jsonObject.get("executionSummary")));
+			environmentStatuses = buildUdeployEnvResCompData(environment, application,
+					(JSONObject) jsonObject.get("executionSummary"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			LOGGER.info("ParseException is " + e.getMessage());
@@ -118,7 +115,6 @@ public class DefaultUDeployClient implements UDeployClient {
 	public List<EnvironmentComponent> getEnvironmentComponents(UDeployApplication application,
 			Environment environment) {
 		List<EnvironmentComponent> components = new ArrayList<>();
-		LOGGER.info("execution id is " + application.getExecutionId());
 		String url = "v1/executions/" + application.getExecutionId() + "/execution-log/";
 		ResponseEntity<String> allResourceResponse = makeRestCall(application.getInstanceUrl(), url);
 		String newResponse = "[" + allResourceResponse.getBody() + "]";
@@ -157,6 +153,7 @@ public class DefaultUDeployClient implements UDeployClient {
 			JSONObject jsonObject) {
 		UDeployEnvResCompData data = new UDeployEnvResCompData();
 		data.setEnvironmentName(environment.getEnvName());
+		data.setEnvironmentUrl(application.getInstanceUrl());
 		data.setCollectorItemId(application.getId());
 		data.setComponentVersion(environment.getVersion());
 		data.setAsOfDate(date(jsonObject, "endTime"));
@@ -172,7 +169,6 @@ public class DefaultUDeployClient implements UDeployClient {
 		// need to check this
 		data.setOnline(data.isDeployed());
 		data.setResourceName(application.getExecutionName());
-
 		return data;
 	}
 

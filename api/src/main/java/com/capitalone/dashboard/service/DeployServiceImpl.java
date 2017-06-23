@@ -220,7 +220,7 @@ public class DeployServiceImpl implements DeployService {
 
     private Collector createCollector() {
         CollectorRequest collectorReq = new CollectorRequest();
-        collectorReq.setName("Jenkins");  //for now hardcode it.
+        collectorReq.setName("HPOO");  //for now hardcode it.
         collectorReq.setCollectorType(CollectorType.Deployment);
         Collector col = collectorReq.toCollector();
         col.setEnabled(true);
