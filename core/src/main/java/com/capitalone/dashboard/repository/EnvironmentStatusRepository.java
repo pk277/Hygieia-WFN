@@ -1,10 +1,12 @@
 package com.capitalone.dashboard.repository;
 
-import com.capitalone.dashboard.model.EnvironmentStatus;
+import java.util.List;
+
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+import com.capitalone.dashboard.model.EnvironmentStatus;
 
 /**
  * {@link EnvironmentStatus} repository.
@@ -18,4 +20,7 @@ public interface EnvironmentStatusRepository extends CrudRepository<EnvironmentS
      * @return list of {@link EnvironmentStatus}es.
      */
     List<EnvironmentStatus> findByCollectorItemId(ObjectId collectorItemId);
+    
+    @Query(value="{environmentName : ?0}")
+    List<EnvironmentStatus> findStatusByEnvName(String envName);
 }

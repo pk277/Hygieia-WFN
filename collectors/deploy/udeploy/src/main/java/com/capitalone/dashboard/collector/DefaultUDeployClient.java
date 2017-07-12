@@ -60,12 +60,13 @@ public class DefaultUDeployClient implements UDeployClient {
 				LOGGER.info("exId id is " + application.getExecutionId());
 			}
 		}
-		
+		envList = new ArrayList<String>();
 		return applications;
 	}
 
 	@Override
 	public List<Environment> getEnvironments(UDeployApplication application) {
+		//envList = new ArrayList<String>();
 		List<Environment> environment = new ArrayList<>();
 		String url = "v1/executions/" + application.getExecutionId() + "/execution-log/";
 

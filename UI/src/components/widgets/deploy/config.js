@@ -55,18 +55,21 @@
                 	var ids = new Array(deploys.length);
                 	for (var i = 0; i < deploys.length; ++i) {
                 		var deploy = deploys[i];
-                		
+                		console.log("deploy.id is "+deploy.id);
                 		ids[i] = deploy.id;
                 		
                 		if (_.contains(currentCollectorItemIds, deploy.id)) {
+							console.log("Inside if of selectedIndex");
                             selectedIndex = idx;
+							console.log("selectedIndex is "+selectedIndex);
                         }
                 		
-                		/* if (i > 0) {
-                			name += ', ';
-                		} */
+                		 /* if (i > 0) {
+                			name = 'HPOO';
+                		}  */
 						console.log("deploy.collector.name is "+deploy.collector.name);
-                		name = ((deploy.niceName != null) && (deploy.niceName != "") ? deploy.niceName : deploy.collector.name);
+                		//name = ((deploy.niceName != null) && (deploy.niceName != "") ? deploy.niceName : deploy.collector.name);
+						name = deploy.collector.name;
                     }
                 	
                 	group = name;

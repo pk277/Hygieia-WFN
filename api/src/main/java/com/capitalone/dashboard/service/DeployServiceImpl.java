@@ -1,10 +1,26 @@
 package com.capitalone.dashboard.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import com.capitalone.dashboard.misc.HygieiaException;
 import com.capitalone.dashboard.model.Collector;
 import com.capitalone.dashboard.model.CollectorItem;
 import com.capitalone.dashboard.model.CollectorType;
-import com.capitalone.dashboard.model.Component;
 import com.capitalone.dashboard.model.DataResponse;
 import com.capitalone.dashboard.model.EnvironmentComponent;
 import com.capitalone.dashboard.model.EnvironmentStatus;
@@ -13,7 +29,6 @@ import com.capitalone.dashboard.model.deploy.Environment;
 import com.capitalone.dashboard.model.deploy.Server;
 import com.capitalone.dashboard.repository.CollectorItemRepository;
 import com.capitalone.dashboard.repository.CollectorRepository;
-import com.capitalone.dashboard.repository.ComponentRepository;
 import com.capitalone.dashboard.repository.EnvironmentComponentRepository;
 import com.capitalone.dashboard.repository.EnvironmentStatusRepository;
 import com.capitalone.dashboard.request.CollectorRequest;
@@ -21,23 +36,11 @@ import com.capitalone.dashboard.request.DeployDataCreateRequest;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class DeployServiceImpl implements DeployService {
-
-    private final ComponentRepository componentRepository;
+private final Logger LOGGER = LoggerFactory.getLogger(DeployServiceImpl.class);
+   // private final ComponentRepository componentRepository;
     private final EnvironmentComponentRepository environmentComponentRepository;
     private final EnvironmentStatusRepository environmentStatusRepository;
     private final CollectorRepository collectorRepository;
@@ -45,11 +48,11 @@ public class DeployServiceImpl implements DeployService {
     private final CollectorService collectorService;
 
     @Autowired
-    public DeployServiceImpl(ComponentRepository componentRepository,
+    public DeployServiceImpl(/*ComponentRepository componentRepository,*/
                              EnvironmentComponentRepository environmentComponentRepository,
                              EnvironmentStatusRepository environmentStatusRepository,
                              CollectorRepository collectorRepository, CollectorItemRepository collectorItemRepository, CollectorService collectorService) {
-        this.componentRepository = componentRepository;
+       /* this.componentRepository = componentRepository;*/
         this.environmentComponentRepository = environmentComponentRepository;
         this.environmentStatusRepository = environmentStatusRepository;
         this.collectorRepository = collectorRepository;
@@ -59,10 +62,12 @@ public class DeployServiceImpl implements DeployService {
 
     @Override
     public DataResponse<List<Environment>> getDeployStatus(ObjectId componentId) {
-        Component component = componentRepository.findOne(componentId);
+       // Component component = componentRepository.findOne(componentId);
         
-        Collection<CollectorItem> cis = component.getCollectorItems()
-                .get(CollectorType.Deployment);
+        Collector collector = collectorRepository.findByName("HPOO");
+        Set<ObjectId> udId = new HashSet<>();
+		udId.add(collector.getId());
+        Collection<CollectorItem> cis = collectorItemRepository.findByCollectorIdIn(udId);
         
         return getDeployStatus(cis);
     }
@@ -79,12 +84,13 @@ public class DeployServiceImpl implements DeployService {
         // then each collector will have a different url which means each Environment will be different
         for (CollectorItem item : deployCollectorItems) {
 	        ObjectId collectorItemId = item.getId();
-	
+        	//LOGGER.info(collectorItemId+" "+item.getDescription());
 	        List<EnvironmentComponent> components = environmentComponentRepository
 	                .findByCollectorItemId(collectorItemId);
 	        List<EnvironmentStatus> statuses = environmentStatusRepository
 	                .findByCollectorItemId(collectorItemId);
-	
+	       // LOGGER.info("Components list is"+components+"size is"+components.size());
+	    	//LOGGER.info("statuses list is"+statuses+"size is"+statuses.size());
 	        for (Map.Entry<Environment, List<EnvironmentComponent>> entry : groupByEnvironment(
 	                components).entrySet()) {
 	            Environment env = entry.getKey();

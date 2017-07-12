@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Component;
 
-import com.capitalone.dashboard.model.CollectorItem;
-import com.capitalone.dashboard.model.CollectorType;
 import com.capitalone.dashboard.model.Environment;
 import com.capitalone.dashboard.model.EnvironmentComponent;
 import com.capitalone.dashboard.model.EnvironmentStatus;
@@ -21,7 +19,6 @@ import com.capitalone.dashboard.model.UDeployApplication;
 import com.capitalone.dashboard.model.UDeployCollector;
 import com.capitalone.dashboard.model.UDeployEnvResCompData;
 import com.capitalone.dashboard.repository.BaseCollectorRepository;
-import com.capitalone.dashboard.repository.ComponentRepository;
 import com.capitalone.dashboard.repository.EnvironmentComponentRepository;
 import com.capitalone.dashboard.repository.EnvironmentStatusRepository;
 import com.capitalone.dashboard.repository.UDeployApplicationRepository;
@@ -46,14 +43,14 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
 	private final EnvironmentComponentRepository envComponentRepository;
 	private final EnvironmentStatusRepository environmentStatusRepository;
 
-	private final ComponentRepository dbComponentRepository;
+	//private final ComponentRepository dbComponentRepository;
 
 	@Autowired
 	public UDeployCollectorTask(TaskScheduler taskScheduler, UDeployCollectorRepository uDeployCollectorRepository,
 			UDeployApplicationRepository uDeployApplicationRepository,
 			EnvironmentComponentRepository envComponentRepository,
 			EnvironmentStatusRepository environmentStatusRepository, UDeploySettings uDeploySettings,
-			UDeployClient uDeployClient, ComponentRepository dbComponentRepository) {
+			UDeployClient uDeployClient){//, ComponentRepository dbComponentRepository) {
 		super(taskScheduler, "HPOO");
 		this.uDeployCollectorRepository = uDeployCollectorRepository;
 		this.uDeployApplicationRepository = uDeployApplicationRepository;
@@ -61,7 +58,7 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
 		this.uDeployClient = uDeployClient;
 		this.envComponentRepository = envComponentRepository;
 		this.environmentStatusRepository = environmentStatusRepository;
-		this.dbComponentRepository = dbComponentRepository;
+		//this.dbComponentRepository = dbComponentRepository;
 	}
 
 	@Override
@@ -103,7 +100,8 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
 	 */
 	// @SuppressWarnings("PMD.AvoidDeeplyNestedIfStmts")
 	private void clean(UDeployCollector collector) {
-		deleteUnwantedJobs(collector);
+		deleteAll(collector);
+		/*deleteUnwantedJobs(collector);
 		Set<ObjectId> uniqueIDs = new HashSet<>();
 		for (com.capitalone.dashboard.model.Component comp : dbComponentRepository.findAll()) {
 			if (comp.getCollectorItems() == null || comp.getCollectorItems().isEmpty())
@@ -124,12 +122,22 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
 			if (app != null) {
 				app.setEnabled(uniqueIDs.contains(app.getId()));
 				appList.add(app);
+				LOGGER.info("application added to appList is " + app.getExecutionName());
+				LOGGER.info("appList size is " + appList.size());
 			}
 		}
-		uDeployApplicationRepository.delete(appList);
+		uDeployApplicationRepository.delete(appList);*/
 	}
 
-	private void deleteUnwantedJobs(UDeployCollector collector) {
+	private void deleteAll(UDeployCollector collector) {
+		List<UDeployApplication> deleteAppList = new ArrayList<>();
+		Set<ObjectId> udId = new HashSet<>();
+		udId.add(collector.getId());
+		deleteAppList = uDeployApplicationRepository.findByCollectorIdIn(udId);
+		uDeployApplicationRepository.delete(deleteAppList);
+	}
+
+	/*private void deleteUnwantedJobs(UDeployCollector collector) {
 
 		List<UDeployApplication> deleteAppList = new ArrayList<>();
 		Set<ObjectId> udId = new HashSet<>();
@@ -143,7 +151,7 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
 
 		uDeployApplicationRepository.delete(deleteAppList);
 
-	}
+	}*/
 
 	private List<EnvironmentComponent> getEnvironmentComponent(List<UDeployEnvResCompData> dataList) {
 		List<EnvironmentComponent> returnList = new ArrayList<>();
@@ -196,31 +204,35 @@ public class UDeployCollectorTask extends CollectorTask<UDeployCollector> {
 				LOGGER.info("uDeployApplications size is " + uDeployApplications.size());
 				for (Environment environment : uDeployClient.getEnvironments(application)) {
 					addedApplications.add(application);
+					LOGGER.info("application added is " + application.getExecutionName());
 					combinedDataList.add(uDeployClient.getEnvironmentResourceStatusData(application, environment));
 				}
 			}
 		}
-		// compList = envComponentRepository.findAll();
+		LOGGER.info("combinedDataList size is " + combinedDataList.size());
 		compList.addAll(getEnvironmentComponent(combinedDataList));
 		statusList.addAll(getEnvironmentStatus(combinedDataList));
-		if (!compList.isEmpty() && !statusList.isEmpty()) {
-			for (UDeployApplication application : addedApplications) {
+		LOGGER.info("compList size is " + compList.size());
+		LOGGER.info("statusList size is " + statusList.size());
+		envComponentRepository.deleteAll();
+		environmentStatusRepository.deleteAll();
+	//	if (!compList.isEmpty() && !statusList.isEmpty()) {
+		//	for (UDeployApplication application : addedApplications) {
 				for (EnvironmentComponent component : compList) {
-					List<EnvironmentComponent> existingComponents = envComponentRepository
-							.findByCollectorItemId(application.getId());
-					envComponentRepository.delete(existingComponents);
+					/*List<EnvironmentComponent> existingComponents = envComponentRepository
+							.findByCollectorItemId(application.getId());*/
+				//	envComponentRepository.delete(existingComponents);
 					envComponentRepository.save(component);
 				}
 
 				for (EnvironmentStatus status : statusList) {
-					// environmentStatusRepository.deleteAll();
-					List<EnvironmentStatus> existingStatuses = environmentStatusRepository
-							.findByCollectorItemId(application.getId());
-					environmentStatusRepository.delete(existingStatuses);
+					/*List<EnvironmentStatus> existingStatuses = environmentStatusRepository
+							.findByCollectorItemId(application.getId());*/
+				//	environmentStatusRepository.delete(existingStatuses);
 					environmentStatusRepository.save(status);
 				}
-			}
-		}
+		//	}
+	//	}
 
 	}
 

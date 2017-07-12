@@ -30,6 +30,9 @@ public interface EnvironmentComponentRepository extends CrudRepository<Environme
      * @return list of {@link EnvironmentComponent}
      */
     List<EnvironmentComponent> findByCollectorItemId(ObjectId collectorItemId);
+    
+    @Query(value="{environmentName : ?0}")
+    List<EnvironmentComponent> findByEnvName(String envName);
 
     @Query(value="{ 'collectorItemId': {$in: ?0 }, 'deployed': true}")
     List<EnvironmentComponent> findDeployedByCollectorItemIds(List<ObjectId> collectorItemIds);
