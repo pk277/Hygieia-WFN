@@ -167,21 +167,21 @@
       <modules>
         <module>core</module>
         <module>api</module>
-        <module>collectors/artifact/artifactory</module>
-        <module>collectors/build/bamboo</module>
+        <!-- <module>collectors/artifact/artifactory</module>
+        <module>collectors/build/bamboo</module> -->
         <module>collectors/build/jenkins</module>
-        <module>collectors/build/jenkins-cucumber</module>
+        <!-- <module>collectors/build/jenkins-cucumber</module> -->
         <module>collectors/build/sonar</module>
-        <module>collectors/cloud/aws</module>
+        <!-- <module>collectors/cloud/aws</module> -->
         <module>collectors/deploy/udeploy</module>
-        <module>collectors/deploy/xldeploy</module>
-        <module>collectors/feature/jira</module>
+        <!-- <module>collectors/deploy/xldeploy</module>
+        <module>collectors/feature/jira</module> -->
         <module>collectors/feature/rally</module>
-        <module>collectors/misc/chat-ops</module>
-        <module>collectors/scm/bitbucket</module>
-        <module>collectors/scm/github</module>
+        <module>collectors/misc/Splunk</module>
+        <!-- <module>collectors/scm/bitbucket</module>
+        <module>collectors/scm/github</module> -->
         <module>collectors/scm/subversion</module>
-        <module>collectors/scm/gitlab</module>
+       <!--  <module>collectors/scm/gitlab</module> -->
         <module>UI</module>
       </modules>
       <build>
@@ -205,21 +205,21 @@
       <modules>
         <module>core</module>
         <module>api</module>
-        <module>collectors/artifact/artifactory</module>
-        <module>collectors/build/bamboo</module>
+        <!-- <module>collectors/artifact/artifactory</module>
+        <module>collectors/build/bamboo</module> -->
         <module>collectors/build/jenkins</module>
-        <module>collectors/build/jenkins-cucumber</module>
+        <!-- <module>collectors/build/jenkins-cucumber</module> -->
         <module>collectors/build/sonar</module>
-        <module>collectors/cloud/aws</module>
+        <!-- <module>collectors/cloud/aws</module> -->
         <module>collectors/deploy/udeploy</module>
-        <module>collectors/deploy/xldeploy</module>
-        <module>collectors/feature/jira</module>
+        <!-- <module>collectors/deploy/xldeploy</module>
+        <module>collectors/feature/jira</module> -->
         <module>collectors/feature/rally</module>
-        <module>collectors/misc/chat-ops</module>
-        <module>collectors/scm/bitbucket</module>
-        <module>collectors/scm/github</module>
+        <module>collectors/misc/Splunk</module>
+        <!-- <module>collectors/scm/bitbucket</module>
+        <module>collectors/scm/github</module> -->
         <module>collectors/scm/subversion</module>
-        <module>collectors/scm/gitlab</module>
+        <!-- <module>collectors/scm/gitlab</module> -->
       </modules>
       <build>
         <plugins>
