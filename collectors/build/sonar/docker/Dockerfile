@@ -8,7 +8,7 @@ RUN \
 
 COPY *.jar /hygieia/
 COPY sonar-codequality-properties-builder.sh /hygieia/
-
+RUN chmod 777 /hygieia/sonar-codequality-properties-builder.sh
 WORKDIR /hygieia
 
 VOLUME ["/hygieia/logs"]

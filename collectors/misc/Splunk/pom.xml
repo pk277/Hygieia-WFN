@@ -9,7 +9,7 @@
   <url>https://github.com/capitalone/Hygieia</url>
   <packaging>jar</packaging>
 
-  <artifactId>splunk-collector</artifactId>
+  <artifactId>hygieia-splunk-collector</artifactId>
 
   <parent>
     <groupId>com.capitalone.dashboard</groupId>
@@ -52,7 +52,7 @@
         <artifactId>docker-maven-plugin</artifactId>
         <configuration>
           <skipDockerBuild>false</skipDockerBuild>
-          <imageName>splunk-collector</imageName>
+          <imageName>hygieia-splunk-collector</imageName>
           <dockerDirectory>${project.basedir}/docker</dockerDirectory>
           <resources>
             <resource>

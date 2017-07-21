@@ -13,7 +13,7 @@ fi
 
 if [ "$MONGO_PORT" != "" ]; then
 	# Sample: MONGO_PORT=tcp://172.17.0.20:27017
-	MONGODB_HOST=`echo $MONGO_PORT|sed 's;.*://\([^:]*\):\(.*\);\1;'`
+	MONGODB_HOST=`echo $MONGO_HOST|sed 's;.*://\([^:]*\):\(.*\);\1;'`
 	MONGODB_PORT=`echo $MONGO_PORT|sed 's;.*://\([^:]*\):\(.*\);\2;'`
 else
 	env
@@ -40,33 +40,33 @@ fi
 
 cat > $PROP_FILE <<EOF
 #Database Name
-dbname=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_DATABASE:-dashboard}
+dbname=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_DATABASE:-dashboarddb}
 
 #Database HostName - default is localhost
-dbhost=${MONGODB_HOST:-10.0.1.1}
+dbhost=${MONGODB_HOST:-11.16.42.153}
 
 #Database Port - default is 27017
 dbport=${MONGODB_PORT:-27017}
 
 #Database Username - default is blank
-dbusername=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_USERNAME:-db}
+dbusername=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_USERNAME:-dashboarduser}
 
 #Database Password - default is blank
-dbpassword=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_PASSWORD:-dbpass}
+dbpassword=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_PASSWORD:-dbpassword}
 
 #Collector schedule (required)
 sonar.cron=${SONAR_CRON:-0 0/5 * * * *}
 
-sonar.servers[0]=${SONAR_URL:-http://localhost:9000}
+sonar.servers[0]=${SONAR_URL:-http://cdlmasjenkins09.es.ad.adp.com:8080}
 
 #Sonar Authentication Username - default is blank
-sonar.username=${SONAR_USERNAME:-sonarusername}
+sonar.username=${SONAR_USERNAME:-}
 
 #Sonar Authentication Password - default is blank
-sonar.password=${SONAR_PASSWORD:-sonarpassword}
+sonar.password=${SONAR_PASSWORD:-}
 
 #Sonar Metrics
-sonar.metrics=${SONAR_METRICS:-ncloc,line_coverage,violations,critical_violations,major_violations,blocker_violations,sqale_index,test_success_density,test_failures,test_errors,tests}
+sonar.metrics=${SONAR_METRICS:-ncloc,violations,new_vulnerabilities,critical_violations,major_violations,blocker_violations,tests,test_success_density,test_errors,test_failures,coverage,line_coverage,sqale_index,alert_status,quality_gate_details}
 
 EOF
 

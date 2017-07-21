@@ -8,7 +8,7 @@ RUN \
 
 COPY *.jar /hygieia/
 COPY udeploy-properties-builder.sh /hygieia/
-
+RUN chmod 777 /hygieia/udeploy-properties-builder.sh
 WORKDIR /hygieia
 
 VOLUME ["/hygieia/logs"]

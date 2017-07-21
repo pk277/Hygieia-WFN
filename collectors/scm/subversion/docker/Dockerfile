@@ -8,7 +8,7 @@ RUN \
 
 COPY *.jar /hygieia/
 COPY subversion-properties-builder.sh /hygieia/
-
+RUN chmod 777 /hygieia/subversion-properties-builder.sh
 WORKDIR /hygieia
 
 VOLUME ["/hygieia/logs"]

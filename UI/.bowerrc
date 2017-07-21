@@ -1,6 +1,6 @@
 {
     "directory": "bower_components",
-	 "proxy": "http://ES%5Ckasibhov:Krishna@10@11.164.4.21:8080",
-  "https-proxy": "http://ES%5Ckasibhov:Krishna@10@11.164.4.21:8080",
+	 "proxy": "http://build:BDSbds%40123@usproxy.es.oneadp.com:8080",
+  "https-proxy": "http://build:BDSbds%40123@usproxy.es.oneadp.com:8080",
   "strict-ssl": false
 }

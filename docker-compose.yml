@@ -1,9 +1,9 @@
 mongodb:
   image: mongo:latest
-  container_name: mongodb
+  container_name: mongo
   command: mongod --smallfiles
   ports:
-   - "27017:27017"
+  - "27017:27017"
   volumes:
    - ./mongo:/data/db:rw
   volume_driver: local
@@ -91,9 +91,9 @@ hygieia-subversion-scm-collector:
   - SUBVERSION_COMMIT_THRESHOLD_DAYS:-15
   - SUBVERSION_URL:-http://svn-mas.es.oneadp.com/svn/MAS_WFN/
 #
-hygieia-versionone-collector:
-  image: hygieia-versionone-collector:latest
-  container_name: hygieia-versionone
+hygieia-rally-collector:
+  image: hygieia-rally-collector:latest
+  container_name: hygieia-rally
   volumes:
   - ./logs:/hygieia/logs
   links:
