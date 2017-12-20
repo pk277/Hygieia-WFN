@@ -78,8 +78,8 @@ public class DefaultUDeployClient implements UDeployClient {
 
 			JSONObject jsonObject = (JSONObject) array.get(0);
 			JSONArray flowVarsArray = getLowestLevelChildren(jsonObject, new JSONArray());
-			String envVer = str((JSONObject) flowVarsArray.get(0), "value");
-			String envName = str((JSONObject) flowVarsArray.get(1), "value");
+			String envVer = str((JSONObject) flowVarsArray.get(1), "value");
+			String envName = str((JSONObject) flowVarsArray.get(0), "value");
 			if (!envList.contains(envVer+" "+envName)) {
 				envList.add(envVer+" "+envName);
 				environment.add(new Environment(envVer, envVer+" "+envName));
